@@ -1,0 +1,20 @@
+{
+  "username": "Username",
+  "password": "Password",
+  "email": "E-Mail",
+  "alreadyHaveAccount": "Already have an account?",
+  "noAccountYet": "Don't have an account yet?",
+  "registerLinkTitle": "Register now!",
+  "loginLinkTitle": "Go to the login!",
+  "login": {
+    "title": "Dungeons & Dragons",
+    "subtitle": "NAK Edition",
+    "submit": "Login"
+  },
+  "register": {
+    "title": "Register",
+    "passwordRepeat": "Repeat password",
+    "passwordMismatch": "Passwords don't match",
+    "submit": "Create account"
+  }
+}
