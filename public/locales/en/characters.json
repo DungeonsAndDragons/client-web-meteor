@@ -6,6 +6,7 @@
     "inventory": "Inventory",
     "background": "Background story"
   },
+  "deathSaves": "Death saves",
   "initiative": "Initiative",
   "speed": "Unit speed",
   "speedUnit": "ft / round",

@@ -59,6 +59,11 @@ export function createCharacterFixtures() {
             temporary: Math.floor(Math.random() * 10) * 5
         });
 
+        const getRandomDeathSaves = () => ({
+            successes: Math.floor(Math.random() * 3),
+            failures : Math.floor(Math.random() * 3)
+        });
+
         console.log("Inserting character fixtures ...");
 
 
@@ -71,7 +76,8 @@ export function createCharacterFixtures() {
                 skills: getRandomSkills(),
                 proficiencyBonus: getRandomModifier(),
                 speed: getRandomSpeed(),
-                initiative: Math.floor(Math.random() * 3)
+                initiative: Math.floor(Math.random() * 3),
+                deathSaves: getRandomDeathSaves()
             });
     }
 }

@@ -9,6 +9,7 @@ import { Grid, ListSubheader, Typography } from "material-ui";
 import Skill from "./Skill";
 import Speed from "./Speed";
 import Initiative from "./Initiative";
+import DeathSaves from "./DeathSaves";
 
 const styles = theme => ({
     root: {
@@ -57,9 +58,10 @@ class Statistics extends Component {
 
                     <Speed characterID={character._id} />
                     <Initiative characterID={character._id} />
+                    <DeathSaves characterID={character._id} />
 
                     <Grid item>
-                        (Death saves, Hit dice, AC, Weponry)
+                        (Hit dice, AC, Weponry)
                     </Grid>
 
 

@@ -61,6 +61,23 @@ const speedSchema = new SimpleSchema({
     temporary: SimpleSchema.Integer
 });
 
+const deathSavesSchema = new SimpleSchema({
+    successes: { type: SimpleSchema.Integer, min: 0, max: 3 },
+    failures: { type: SimpleSchema.Integer, min: 0, max: 3 }
+});
+
+const diceThrowSchema = new SimpleSchema({
+    factor: { type: SimpleSchema.Integer, defaultValue: 1 },
+    multiplier: { type: SimpleSchema.Integer, defaultValue: 1 },
+    sides: SimpleSchema.Integer,
+    modifier: { type: SimpleSchema.Integer, defaultValue: 0 }
+});
+
+const hitDiceSchema = new SimpleSchema({
+    total: [diceThrowSchema],
+    remaining: [diceThrowSchema],
+});
+
 Characters.schema = new SimpleSchema({
     name: { type: String, defaultValue: 'Unnamed' },
     health: healthSchema,
@@ -69,7 +86,9 @@ Characters.schema = new SimpleSchema({
     proficiencyBonus: SimpleSchema.Integer,
     speed: speedSchema, // feet per round
     initiative: SimpleSchema.Integer,
-    ownerID: String
+    ownerID: String,
+    deathSaves: deathSavesSchema,
+    hitDice: hitDiceSchema
 });
 
 Characters.attachSchema(Characters.schema);
@@ -126,6 +145,20 @@ Meteor.methods({
         validateEditPermission(charID, this.userId);
 
         Characters.update(charID, { $set: { speed } });
+    },
+    'character.setInitiative'(charID, initiative) {
+        check(charID, String);
+
+        validateEditPermission(charID, this.userId);
+
+        Characters.update(charID, { $set: { initiative } });
+    },
+    'character.setDeathSaves'(charID, successes, failures) {
+        check(charID, String);
+
+        validateEditPermission(charID, this.userId);
+
+        Characters.update(charID, { $set: { deathSaves: { successes, failures } } });
     }
     // 'tasks.insert'(text) {
     //     check(text, String);
