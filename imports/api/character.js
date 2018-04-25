@@ -88,7 +88,7 @@ Characters.schema = new SimpleSchema({
     initiative: SimpleSchema.Integer,
     ownerID: String,
     deathSaves: deathSavesSchema,
-    // hitDice: hitDiceSchema,
+    hitDice: hitDiceSchema,
     armorClass: SimpleSchema.Integer
 });
 

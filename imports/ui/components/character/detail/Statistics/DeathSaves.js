@@ -13,6 +13,7 @@ import {
     Typography
 } from 'material-ui';
 import green from 'material-ui/colors/green';
+import { isCharacterEditable } from '../../../../helpers/authentication';
 
 const styles = theme => ({
     root: {
@@ -53,32 +54,42 @@ class DeathSaves extends Component {
         const { t, classes, character } = this.props;
 
         const { successes, failures } = character.deathSaves;
+        const editable = isCharacterEditable(character);
 
         return (
             <Grid item xs={3}>
                 <Paper className={classes.root}>
                     <div>
-                        <IconButton onClick={this.setDeathSaveSuccesses(0)}>
+                        <IconButton
+                            disabled={!editable}
+                            onClick={this.setDeathSaveSuccesses(0)}
+                        >
                             <Icon>verified_user</Icon>
                         </IconButton>
                         <Checkbox
                             classes={{ checked: classes.green }}
                             onClick={this.setDeathSaveSuccesses(1)}
                             checked={successes > 0}
+                            disabled={!editable}
                         />
                         <Checkbox
                             classes={{ checked: classes.green }}
                             onClick={this.setDeathSaveSuccesses(2)}
                             checked={successes > 1}
+                            disabled={!editable}
                         />
                         <Checkbox
                             classes={{ checked: classes.green }}
                             onClick={this.setDeathSaveSuccesses(3)}
                             checked={successes > 2}
+                            disabled={!editable}
                         />
                     </div>
                     <div>
-                        <IconButton onClick={this.setDeathSaveFailures(0)}>
+                        <IconButton
+                            disabled={!editable}
+                            onClick={this.setDeathSaveFailures(0)}
+                        >
                             <Icon>error</Icon>
                         </IconButton>
                         <Checkbox
@@ -86,18 +97,21 @@ class DeathSaves extends Component {
                             checkedIcon={<Icon>indeterminate_check_box</Icon>}
                             onClick={this.setDeathSaveFailures(1)}
                             checked={failures > 0}
+                            disabled={!editable}
                         />
                         <Checkbox
                             classes={{ checked: classes.red }}
                             checkedIcon={<Icon>indeterminate_check_box</Icon>}
                             onClick={this.setDeathSaveFailures(2)}
                             checked={failures > 1}
+                            disabled={!editable}
                         />
                         <Checkbox
                             classes={{ checked: classes.red }}
                             checkedIcon={<Icon>indeterminate_check_box</Icon>}
                             onClick={this.setDeathSaveFailures(3)}
                             checked={failures > 2}
+                            disabled={!editable}
                         />
                     </div>
 

@@ -77,18 +77,15 @@ class Statistics extends Component {
                         characterID={character._id}
                     />
 
-                    <Grid item>(Hit dice, Weponry)</Grid>
+                    <Grid item>(Hit dice)</Grid>
 
                     {/* ---- Other ---- */}
                     <Grid item xs={12}>
                         <ListSubheader>Other</ListSubheader>
                     </Grid>
                     <Grid item xs={4}>
-                        Saving throws
-                    </Grid>
-                    <Grid item xs={4}>
-                        (Inspiration, Passive perception, Player Name, XP,
-                        Class, Alignment, Race, BG)
+                        Saving throws, Inspiration, Passive perception, Player
+                        Name, XP, Class, Alignment, Race, BG
                     </Grid>
                 </Grid>
             </div>

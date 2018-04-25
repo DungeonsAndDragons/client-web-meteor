@@ -1,4 +1,4 @@
-class DiceThrow {
+export class DiceThrow {
     constructor(factor, multiplier, sides, modifier) {
         if (typeof factor === 'string') {
             const match = factor.match(

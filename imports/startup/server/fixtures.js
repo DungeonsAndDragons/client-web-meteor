@@ -1,10 +1,22 @@
 import { Characters } from '../../api/character.js';
+import { DiceThrow } from '../../ui/helpers/Dice';
 
 export function createCharacterFixtures() {
     if (Characters.find().count() === 0) {
         const getRandomModifier = () => Math.floor(Math.random() * 15) - 5;
         const getRandomScore = () => Math.floor(Math.random() * 57) + 3;
         const getRandomBool = () => Math.random() > 0.5;
+
+        const getRandomUpTo = max => Math.floor(Math.random() * max);
+
+        const diceSides = [4, 6, 8, 10, 12, 20];
+        const getRandomDiceThrow = () =>
+            new DiceThrow(
+                0,
+                getRandomUpTo(5),
+                diceSides[getRandomUpTo(diceSides.length - 1)],
+                getRandomUpTo(10)
+            );
 
         const getRandomName = () => {
             return `Mindartis ${getRandomScore()}`;
@@ -113,8 +125,13 @@ export function createCharacterFixtures() {
         });
 
         const getRandomDeathSaves = () => ({
-            successes: Math.floor(Math.random() * 3),
-            failures: Math.floor(Math.random() * 3)
+            successes: getRandomUpTo(3),
+            failures: getRandomUpTo(3)
+        });
+
+        const getRandomHitDice = () => ({
+            total: Array.from(Array(3), getRandomDiceThrow),
+            remaining: Array.from(Array(3), getRandomDiceThrow)
         });
 
         console.log('Inserting character fixtures ...');
@@ -128,9 +145,10 @@ export function createCharacterFixtures() {
                 skills: getRandomSkills(),
                 proficiencyBonus: getRandomModifier(),
                 speed: getRandomSpeed(),
-                initiative: Math.floor(Math.random() * 3),
-                armorClass: Math.floor(Math.random() * 25),
-                deathSaves: getRandomDeathSaves()
+                initiative: getRandomModifier(),
+                armorClass: getRandomUpTo(25),
+                deathSaves: getRandomDeathSaves(),
+                hitDice: getRandomHitDice()
             });
     }
 }
