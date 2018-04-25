@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
 import { withTracker } from 'meteor/react-meteor-data';
-import { Characters } from "../../../../api/character";
-import {Card, CardContent, CardMedia, Typography} from "material-ui";
-import {Link} from "found";
-import Loader from "../../loader/loader";
+import { Characters } from '../../../../api/character';
+import { Card, CardContent, CardMedia, Typography } from 'material-ui';
+import { Link } from 'found';
+import Loader from '../../loader/loader';
 
 const styles = theme => ({
     root: {
@@ -38,8 +38,7 @@ class CharacterListItem extends Component {
     render() {
         const { classes, character, imageHeight } = this.props;
 
-        if (!character)
-            return <Loader text="Loading character" />;
+        if (!character) return <Loader text="Loading character" />;
 
         return (
             <Link
@@ -49,7 +48,7 @@ class CharacterListItem extends Component {
             >
                 <CardMedia
                     style={{ height: imageHeight ? imageHeight : 300 }}
-                    image='/Character.png' // TODO Replace this with the actual image
+                    image="/Character.png" // TODO Replace this with the actual image
                     title={character.name}
                 />
                 <CardContent className={classes.cardContent}>
@@ -69,8 +68,6 @@ export default withTracker(props => {
     Meteor.subscribe('characters');
 
     return {
-        character: Characters.findOne({ _id: props.id }),
+        character: Characters.findOne({ _id: props.id })
     };
-})(
-    withStyles(styles)(CharacterListItem)
-);
+})(withStyles(styles)(CharacterListItem));

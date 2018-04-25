@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import {Button, CircularProgress, Grid, Paper, TextField, Typography} from "material-ui";
-import {translate} from "react-i18next";
-import {Link} from "found";
+import {
+    Button,
+    CircularProgress,
+    Grid,
+    Paper,
+    TextField,
+    Typography
+} from 'material-ui';
+import { translate } from 'react-i18next';
+import { Link } from 'found';
 
 const styles = theme => ({
     wrapper: {
@@ -21,7 +28,7 @@ const styles = theme => ({
     }),
     logo: {
         width: 160,
-        height: 160,
+        height: 160
     },
     loginButtonWrapper: {
         margin: theme.spacing.unit,
@@ -32,8 +39,8 @@ const styles = theme => ({
         top: '50%',
         left: '50%',
         marginTop: -12,
-        marginLeft: -12,
-    },
+        marginLeft: -12
+    }
 });
 
 class Login extends Component {
@@ -48,7 +55,7 @@ class Login extends Component {
 
     handleChange = name => event => {
         this.setState({
-            [name]: event.target.value,
+            [name]: event.target.value
         });
     };
 
@@ -57,14 +64,16 @@ class Login extends Component {
     };
 
     handleLogin = () => {
-        Meteor.loginWithPassword(this.state.name, this.state.password, (err) => {
+        Meteor.loginWithPassword(this.state.name, this.state.password, err => {
             if (err) alert(err);
             else this.redirectAfterLogin();
         });
     };
 
     redirectAfterLogin = () => {
-        this.props.router.push(Session.get('redirectAfterLogin') || '/dashboard');
+        this.props.router.push(
+            Session.get('redirectAfterLogin') || '/dashboard'
+        );
     };
 
     componentWillMount() {
@@ -81,7 +90,12 @@ class Login extends Component {
                 <Paper className={classes.root} elevation={4}>
                     <Grid container spacing={8}>
                         <Grid item xs={12}>
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center'
+                                }}
+                            >
                                 <img
                                     alt="DnD"
                                     src="/dnd_logo.png"
@@ -91,7 +105,10 @@ class Login extends Component {
                             <Typography variant="headline" component="h1">
                                 {t('login.title')}
                             </Typography>
-                            <Typography variant="subheading" style={{color: '#a0a0a0'}}>
+                            <Typography
+                                variant="subheading"
+                                style={{ color: '#a0a0a0' }}
+                            >
                                 {t('login.subtitle')}
                             </Typography>
                         </Grid>
@@ -125,13 +142,21 @@ class Login extends Component {
                                 >
                                     Login
                                 </Button>
-                                {loginInProgress && <CircularProgress size={24} className={classes.loginButtonProgress} />}
+                                {loginInProgress && (
+                                    <CircularProgress
+                                        size={24}
+                                        className={classes.loginButtonProgress}
+                                    />
+                                )}
                             </div>
                         </Grid>
                     </Grid>
                 </Paper>
                 <Typography variant="caption">
-                    {t('noAccountYet')} <Link to={{ pathname: '/register' }}>{t('registerLinkTitle')}</Link>
+                    {t('noAccountYet')}{' '}
+                    <Link to={{ pathname: '/register' }}>
+                        {t('registerLinkTitle')}
+                    </Link>
                 </Typography>
             </div>
         );

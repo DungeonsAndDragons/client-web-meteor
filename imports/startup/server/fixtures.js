@@ -1,4 +1,3 @@
-
 import { Characters } from '../../api/character.js';
 
 export function createCharacterFixtures() {
@@ -34,24 +33,78 @@ export function createCharacterFixtures() {
         });
 
         const getRandomSkills = () => ({
-            acrobatics: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            animalHandling: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            arcana: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            athletics: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            deception: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            history: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            insight: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            intimidation: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            investigation: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            medicine: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            nature: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            perception: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            performance: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            persuasion: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            religion: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            sleightOfHand: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            stealth: { modifier: getRandomModifier(), proficiency: getRandomBool() },
-            survival: { modifier: getRandomModifier(), proficiency: getRandomBool() }
+            acrobatics: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            animalHandling: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            arcana: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            athletics: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            deception: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            history: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            insight: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            intimidation: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            investigation: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            medicine: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            nature: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            perception: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            performance: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            persuasion: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            religion: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            sleightOfHand: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            stealth: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            },
+            survival: {
+                modifier: getRandomModifier(),
+                proficiency: getRandomBool()
+            }
         });
 
         const getRandomSpeed = () => ({
@@ -61,11 +114,10 @@ export function createCharacterFixtures() {
 
         const getRandomDeathSaves = () => ({
             successes: Math.floor(Math.random() * 3),
-            failures : Math.floor(Math.random() * 3)
+            failures: Math.floor(Math.random() * 3)
         });
 
-        console.log("Inserting character fixtures ...");
-
+        console.log('Inserting character fixtures ...');
 
         for (let i = 0; i < 10; i++)
             Characters.insert({
@@ -77,6 +129,7 @@ export function createCharacterFixtures() {
                 proficiencyBonus: getRandomModifier(),
                 speed: getRandomSpeed(),
                 initiative: Math.floor(Math.random() * 3),
+                armorClass: Math.floor(Math.random() * 25),
                 deathSaves: getRandomDeathSaves()
             });
     }

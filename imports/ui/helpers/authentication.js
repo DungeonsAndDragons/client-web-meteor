@@ -6,15 +6,13 @@ export function isCharacterEditable(character) {
 
 export function requireLogin(WrappedComponent) {
     return class extends React.Component {
-
         checkLogin = () => {
             if (!Meteor.userId())
                 Meteor.logout(() => {
                     Session.set('redirectAfterLogin', this.props.location);
                     this.props.router.push('/login');
                 });
-            else
-                Session.set('redirectAfterLogin', undefined);
+            else Session.set('redirectAfterLogin', undefined);
         };
 
         componentWillMount() {
@@ -30,8 +28,7 @@ export function requireLogin(WrappedComponent) {
             // Notice that we pass through any additional props
             if (!Meteor.userId())
                 return <div>Unauthenticated! Redirecting ...</div>;
-            else
-                return <WrappedComponent {...this.props} />;
+            else return <WrappedComponent {...this.props} />;
         }
     };
 }

@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Accounts } from 'meteor/accounts-base'
+import { Accounts } from 'meteor/accounts-base';
 
 import { withStyles } from 'material-ui/styles';
 import {
-    Button, CircularProgress, Divider, FormControl, FormHelperText, Grid, Input, InputLabel, Paper, TextField,
+    Button,
+    CircularProgress,
+    FormControl,
+    FormHelperText,
+    Grid,
+    Input,
+    InputLabel,
+    Paper,
+    TextField,
     Typography
-} from "material-ui";
-import {translate} from "react-i18next";
-import {Link} from "found";
+} from 'material-ui';
+import { translate } from 'react-i18next';
+import { Link } from 'found';
 
 const styles = theme => ({
     wrapper: {
@@ -27,7 +35,7 @@ const styles = theme => ({
     }),
     logo: {
         width: 50,
-        height: 50,
+        height: 50
     },
     registerButtonWrapper: {
         margin: theme.spacing.unit,
@@ -38,8 +46,8 @@ const styles = theme => ({
         top: '50%',
         left: '50%',
         marginTop: -12,
-        marginLeft: -12,
-    },
+        marginLeft: -12
+    }
 });
 
 class Register extends Component {
@@ -56,7 +64,7 @@ class Register extends Component {
 
     handleChange = name => event => {
         this.setState({
-            [name]: event.target.value,
+            [name]: event.target.value
         });
     };
 
@@ -65,23 +73,29 @@ class Register extends Component {
     };
 
     handleRegister = () => {
-        Accounts.createUser({
-            username: this.state.username,
-            password: this.state.password,
-            email: this.state.email,
-            profile: undefined
-        }, (err) => {
-            if (err) alert(err);
-            else this.props.router.push(Session.get('redirectAfterLogin') || '/dashboard');
-        });
+        Accounts.createUser(
+            {
+                username: this.state.username,
+                password: this.state.password,
+                email: this.state.email,
+                profile: undefined
+            },
+            err => {
+                if (err) alert(err);
+                else
+                    this.props.router.push(
+                        Session.get('redirectAfterLogin') || '/dashboard'
+                    );
+            }
+        );
     };
 
     render() {
-
         const { t, classes } = this.props;
         const registerInProgress = Meteor.loggingIn();
 
-        const passwordsDontMatch = this.state.password !== this.state.passwordRepeat;
+        const passwordsDontMatch =
+            this.state.password !== this.state.passwordRepeat;
 
         return (
             <div className={classes.wrapper}>
@@ -122,36 +136,58 @@ class Register extends Component {
                                 onKeyPress={this.handleKeyPress}
                             />
 
-                            <FormControl error={passwordsDontMatch} aria-describedby="repeat-password-text" margin="normal">
-                                <InputLabel htmlFor="repeat-password">{t('register.passwordRepeat')}</InputLabel>
+                            <FormControl
+                                error={passwordsDontMatch}
+                                aria-describedby="repeat-password-text"
+                                margin="normal"
+                            >
+                                <InputLabel htmlFor="repeat-password">
+                                    {t('register.passwordRepeat')}
+                                </InputLabel>
                                 <Input
                                     id="repeat-password"
                                     type="password"
                                     value={this.state.passwordRepeat}
-                                    onChange={this.handleChange('passwordRepeat')}
+                                    onChange={this.handleChange(
+                                        'passwordRepeat'
+                                    )}
                                     onKeyPress={this.handleKeyPress}
                                 />
-                                {passwordsDontMatch
-                                    ? <FormHelperText id="repeat-password-text">{t('register.passwordMismatch')}</FormHelperText>
-                                    : null}
+                                {passwordsDontMatch ? (
+                                    <FormHelperText id="repeat-password-text">
+                                        {t('register.passwordMismatch')}
+                                    </FormHelperText>
+                                ) : null}
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <div className={classes.registerButtonWrapper}>
                                 <Button
                                     color="primary"
-                                    disabled={registerInProgress || passwordsDontMatch}
+                                    disabled={
+                                        registerInProgress || passwordsDontMatch
+                                    }
                                     onClick={this.handleRegister}
                                 >
                                     {t('register.submit')}
                                 </Button>
-                                {registerInProgress && <CircularProgress size={24} className={classes.registerButtonProgress} />}
+                                {registerInProgress && (
+                                    <CircularProgress
+                                        size={24}
+                                        className={
+                                            classes.registerButtonProgress
+                                        }
+                                    />
+                                )}
                             </div>
                         </Grid>
                     </Grid>
                 </Paper>
                 <Typography variant="caption">
-                    {t('alreadyHaveAccount')} <Link to={{ pathname: '/login' }}>{t('loginLinkTitle')}</Link>
+                    {t('alreadyHaveAccount')}{' '}
+                    <Link to={{ pathname: '/login' }}>
+                        {t('loginLinkTitle')}
+                    </Link>
                 </Typography>
             </div>
         );

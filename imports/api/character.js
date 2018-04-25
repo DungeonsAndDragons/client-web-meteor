@@ -75,7 +75,7 @@ const diceThrowSchema = new SimpleSchema({
 
 const hitDiceSchema = new SimpleSchema({
     total: [diceThrowSchema],
-    remaining: [diceThrowSchema],
+    remaining: [diceThrowSchema]
 });
 
 Characters.schema = new SimpleSchema({
@@ -88,7 +88,8 @@ Characters.schema = new SimpleSchema({
     initiative: SimpleSchema.Integer,
     ownerID: String,
     deathSaves: deathSavesSchema,
-    hitDice: hitDiceSchema
+    // hitDice: hitDiceSchema,
+    armorClass: SimpleSchema.Integer
 });
 
 Characters.attachSchema(Characters.schema);
@@ -100,7 +101,7 @@ const validateEditPermission = (charID, userID) => {
     if (!char) throw new Meteor.Error('not-found');
     const ownerID = char.ownerID;
 
-    if (!userID || userID && userID !== ownerID)
+    if (!userID || (userID && userID !== ownerID))
         throw new Meteor.Error('not-authorized');
 };
 
@@ -128,7 +129,9 @@ Meteor.methods({
 
         validateEditPermission(charID, this.userId);
 
-        Characters.update(charID, { $set: { [`skills.${skillType}.proficiency`]: proficient } });
+        Characters.update(charID, {
+            $set: { [`skills.${skillType}.proficiency`]: proficient }
+        });
     },
     'character.setSkillModifier'(charID, skillType, modifier) {
         check(charID, String);
@@ -137,7 +140,9 @@ Meteor.methods({
 
         validateEditPermission(charID, this.userId);
 
-        Characters.update(charID, { $set: { [`skills.${skillType}.modifier`]: modifier } });
+        Characters.update(charID, {
+            $set: { [`skills.${skillType}.modifier`]: modifier }
+        });
     },
     'character.setSpeed'(charID, speed) {
         check(charID, String);
@@ -158,7 +163,16 @@ Meteor.methods({
 
         validateEditPermission(charID, this.userId);
 
-        Characters.update(charID, { $set: { deathSaves: { successes, failures } } });
+        Characters.update(charID, {
+            $set: { deathSaves: { successes, failures } }
+        });
+    },
+    'character.setArmorClass'(charID, armorClass) {
+        check(charID, String);
+
+        validateEditPermission(charID, this.userId);
+
+        Characters.update(charID, { $set: { armorClass } });
     }
     // 'tasks.insert'(text) {
     //     check(text, String);

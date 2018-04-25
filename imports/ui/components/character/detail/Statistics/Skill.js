@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
-import {translate} from "react-i18next";
+import { translate } from 'react-i18next';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Characters } from '../../../../../api/character';
-import {Grid, Icon, IconButton, Paper, Typography} from "material-ui";
-import {isCharacterEditable} from "../../../../helpers/authentication";
+import { Grid, Icon, IconButton, Paper, Typography } from 'material-ui';
+import { isCharacterEditable } from '../../../../helpers/authentication';
 
 const styles = theme => ({
     skillTitle: {
@@ -16,7 +16,7 @@ const styles = theme => ({
         padding: theme.spacing.unit * 2
     },
     skillBottom: {
-        padding: theme.spacing.unit * 1,
+        padding: theme.spacing.unit * 1
     },
     skillNumberActive: {
         backgroundColor: theme.palette.primary.light,
@@ -45,7 +45,8 @@ class Skills extends Component {
     getCurrentSkill = () => this.props.character.skills[this.props.skillType];
 
     toggleSkillProficiency = () => {
-        Meteor.call('character.setSkillProficiency',
+        Meteor.call(
+            'character.setSkillProficiency',
             this.props.character._id,
             this.props.skillType,
             !this.getCurrentSkill().proficiency
@@ -53,7 +54,8 @@ class Skills extends Component {
     };
 
     updateSkillModifier = delta => () => {
-        Meteor.call('character.setSkillModifier',
+        Meteor.call(
+            'character.setSkillModifier',
             this.props.character._id,
             this.props.skillType,
             this.getCurrentSkill().modifier + delta
@@ -67,41 +69,56 @@ class Skills extends Component {
 
         const editable = isCharacterEditable(character);
 
-        const skillGridItemProps = editable ? { xs: 4, sm: 3, md: 4, lg: 3 } : { xs: 4, sm: 3, lg: 2 };
+        const skillGridItemProps = editable
+            ? { xs: 4, sm: 3, md: 4, lg: 3 }
+            : { xs: 4, sm: 3, lg: 2 };
 
-        const decreaseButton = editable
-            ? (<Grid item>
-                    <IconButton
-                        classes={{ root: classes.skillButton }}
-                        onClick={this.updateSkillModifier(-1)}
-                    >
-                        <Icon>remove</Icon>
-                    </IconButton>
-                </Grid>
-            ) : null;
+        const decreaseButton = editable ? (
+            <Grid item>
+                <IconButton
+                    classes={{ root: classes.skillButton }}
+                    onClick={this.updateSkillModifier(-1)}
+                >
+                    <Icon>remove</Icon>
+                </IconButton>
+            </Grid>
+        ) : null;
 
-        const increaseButton = editable
-            ? (<Grid item>
-                    <IconButton
-                        classes={{ root: classes.skillButton }}
-                        onClick={this.updateSkillModifier(1)}
-                    >
-                        <Icon>add</Icon>
-                    </IconButton>
-                </Grid>
-            ) : null;
+        const increaseButton = editable ? (
+            <Grid item>
+                <IconButton
+                    classes={{ root: classes.skillButton }}
+                    onClick={this.updateSkillModifier(1)}
+                >
+                    <Icon>add</Icon>
+                </IconButton>
+            </Grid>
+        ) : null;
 
         return (
             <Grid item {...skillGridItemProps} zeroMinWidth>
                 <Paper>
-                    <Typography variant="caption" className={classes.skillTitle} noWrap>
+                    <Typography
+                        variant="caption"
+                        className={classes.skillTitle}
+                        noWrap
+                    >
                         {t(`skill.${skillType}`)}
                     </Typography>
-                    <Grid container justify="space-around" alignItems="center" className={classes.skillBottom}>
+                    <Grid
+                        container
+                        justify="space-around"
+                        alignItems="center"
+                        className={classes.skillBottom}
+                    >
                         {decreaseButton}
                         <Grid item>
                             <IconButton
-                                className={skill.proficiency ? classes.skillNumberActive : classes.skillNumberInactive}
+                                className={
+                                    skill.proficiency
+                                        ? classes.skillNumberActive
+                                        : classes.skillNumberInactive
+                                }
                                 classes={{ root: classes.skillNumberButton }}
                                 onClick={this.toggleSkillProficiency}
                                 disabled={!editable}
@@ -123,6 +140,4 @@ export default withTracker(props => {
     return {
         character: Characters.findOne({ _id: props.characterID })
     };
-})(
-    translate('characters')(withStyles(styles)(Skills))
-);
+})(translate('characters')(withStyles(styles)(Skills)));

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
-import CharacterList from "../components/character/list/CharacterList";
-import {Grid} from "material-ui";
+import CharacterList from '../components/character/list/CharacterList';
+import { Grid } from 'material-ui';
 
 const styles = theme => ({
     root: {

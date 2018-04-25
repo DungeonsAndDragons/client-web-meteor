@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import { MuiThemeProvider, withStyles } from 'material-ui/styles';
-import {CssBaseline, AppBar, Toolbar, Typography, Button, IconButton, Icon, Menu, MenuItem} from 'material-ui';
+import {
+    AppBar,
+    CssBaseline,
+    Icon,
+    IconButton,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography
+} from 'material-ui';
 
 import { theme } from '../theme';
-import {I18nextProvider, translate} from "react-i18next";
+import { I18nextProvider, translate } from 'react-i18next';
 
 import i18n from '../../i18n/localization';
 
@@ -34,7 +43,7 @@ class App extends Component {
     };
 
     state = {
-        anchorEl: null,
+        anchorEl: null
     };
 
     doLogout = () => {
@@ -42,13 +51,13 @@ class App extends Component {
 
         Session.set('redirectAfterLogin', undefined);
 
-        Meteor.logout((err) => {
+        Meteor.logout(err => {
             if (err) alert(err);
             else setTimeout(() => this.props.router.push('/login'), 250);
         });
     };
 
-    handleAccountMenu = (event) => {
+    handleAccountMenu = event => {
         this.setState({ anchorEl: event.currentTarget });
     };
 
@@ -66,10 +75,18 @@ class App extends Component {
             const open = Boolean(anchorEl);
             toolbar = (
                 <Toolbar>
-                    <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                    <IconButton
+                        className={classes.menuButton}
+                        color="inherit"
+                        aria-label="Menu"
+                    >
                         <Icon>menu</Icon>
                     </IconButton>
-                    <Typography variant="title" color="inherit" style={{ flex: 1 }}>
+                    <Typography
+                        variant="title"
+                        color="inherit"
+                        style={{ flex: 1 }}
+                    >
                         Dungeons & Dragons
                     </Typography>
                     <Typography variant="caption" color="inherit">
@@ -89,11 +106,11 @@ class App extends Component {
                             anchorEl={anchorEl}
                             anchorOrigin={{
                                 vertical: 'top',
-                                horizontal: 'right',
+                                horizontal: 'right'
                             }}
                             transformOrigin={{
                                 vertical: 'top',
-                                horizontal: 'right',
+                                horizontal: 'right'
                             }}
                             open={open}
                             onClose={this.handleClose}
@@ -106,7 +123,11 @@ class App extends Component {
         } else {
             toolbar = (
                 <Toolbar>
-                    <Typography variant="title" color="inherit" style={{ width: '100%', textAlign: 'center' }}>
+                    <Typography
+                        variant="title"
+                        color="inherit"
+                        style={{ width: '100%', textAlign: 'center' }}
+                    >
                         Nordakademie Elmshorn
                     </Typography>
                 </Toolbar>
@@ -117,13 +138,13 @@ class App extends Component {
             <I18nextProvider i18n={i18n}>
                 <MuiThemeProvider theme={theme}>
                     <CssBaseline />
-                        <AppBar position="fixed" color="primary">
-                            {toolbar}
-                        </AppBar>
-                        <div className={classes.children}>{children}</div>
-                        <div style={{ color: '#bfbfbf', textAlign: 'center'}}>
-                            <Copyright />
-                        </div>
+                    <AppBar position="fixed" color="primary">
+                        {toolbar}
+                    </AppBar>
+                    <div className={classes.children}>{children}</div>
+                    <div style={{ color: '#bfbfbf', textAlign: 'center' }}>
+                        <Copyright />
+                    </div>
                 </MuiThemeProvider>
             </I18nextProvider>
         );
@@ -132,8 +153,6 @@ class App extends Component {
 
 export default withTracker(() => {
     return {
-        user: Meteor.user(),
+        user: Meteor.user()
     };
-})(
-    withStyles(styles)(App)
-);
+})(withStyles(styles)(App));

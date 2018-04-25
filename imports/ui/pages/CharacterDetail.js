@@ -2,15 +2,25 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 
-import {Grid, Tab, Tabs, Typography, Paper, Tooltip, Button, TextField, FormControl, Input} from "material-ui";
+import {
+    Button,
+    FormControl,
+    Grid,
+    Input,
+    Paper,
+    Tab,
+    Tabs,
+    Tooltip,
+    Typography
+} from 'material-ui';
 import SwipeableViews from 'react-swipeable-views';
 
 import { withTracker } from 'meteor/react-meteor-data';
-import { Characters } from "../../api/character";
-import Loader from "../components/loader/loader";
-import {translate} from "react-i18next";
-import Statistics from "../components/character/detail/Statistics/Statistics";
-import {isCharacterEditable} from "../helpers/authentication";
+import { Characters } from '../../api/character';
+import Loader from '../components/loader/loader';
+import { translate } from 'react-i18next';
+import Statistics from '../components/character/detail/Statistics/Statistics';
+import { isCharacterEditable } from '../helpers/authentication';
 
 const styles = theme => ({
     root: {
@@ -60,7 +70,7 @@ const styles = theme => ({
         borderRadius: '2px',
         backgroundColor: '#616161',
         opacity: 0.9,
-        textAlign: 'center',
+        textAlign: 'center'
     }
 });
 
@@ -70,7 +80,7 @@ class CharacterDetail extends Component {
     };
 
     state = {
-        selectedTab: 0,
+        selectedTab: 0
     };
 
     handleTabChange = (event, selectedTab) => {
@@ -82,19 +92,26 @@ class CharacterDetail extends Component {
     };
 
     setCharacterName = event => {
-        if (this.setCharacterNameTimeout) clearTimeout(this.setCharacterNameTimeout);
+        if (this.setCharacterNameTimeout)
+            clearTimeout(this.setCharacterNameTimeout);
 
         const newName = event.target.value;
 
-        this.setCharacterNameTimeout = setTimeout(() =>
-            Meteor.call('character.setName', this.props.character._id, newName), 1000);
+        this.setCharacterNameTimeout = setTimeout(
+            () =>
+                Meteor.call(
+                    'character.setName',
+                    this.props.character._id,
+                    newName
+                ),
+            1000
+        );
     };
 
     render() {
         const { t, classes, character } = this.props;
 
-        if (!character)
-            return <Loader text={t('loading')} />;
+        if (!character) return <Loader text={t('loading')} />;
 
         const editable = isCharacterEditable(character);
         const { health, abilities } = character;
@@ -112,59 +129,126 @@ class CharacterDetail extends Component {
             <div className={classes.root}>
                 <Grid container spacing={40}>
                     {/*  --  Left column  --  */}
-                    <Grid item xs={12} md={4} className={classes.imageContainer}>
+                    <Grid
+                        item
+                        xs={12}
+                        md={4}
+                        className={classes.imageContainer}
+                    >
                         <Grid container spacing={24}>
                             {/*  --  Character image & HP --  */}
                             <Grid item xs={12} sm={4} md={12}>
                                 <img
-                                    src='/Character.png' // TODO Replace this with the actual image
+                                    src="/Character.png" // TODO Replace this with the actual image
                                     className={classes.image}
                                 />
 
-                                {editable
-                                    ? (<div>
-                                            <FormControl margin="normal">
-                                                <Input
-                                                    id="charName"
-                                                    defaultValue={character.name}
-                                                    classes={{input: classes.characterName}}
-                                                    onChange={this.setCharacterName}
-                                                />
-                                            </FormControl>
-                                        </div>
-                                    )
-                                    : (<Typography variant="headline" gutterBottom>
-                                            {character.name}
-                                        </Typography>
-                                    )
-                                }
+                                {editable ? (
+                                    <div>
+                                        <FormControl margin="normal">
+                                            <Input
+                                                id="charName"
+                                                defaultValue={character.name}
+                                                classes={{
+                                                    input: classes.characterName
+                                                }}
+                                                onChange={this.setCharacterName}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                ) : (
+                                    <Typography variant="headline" gutterBottom>
+                                        {character.name}
+                                    </Typography>
+                                )}
 
-                                <Tooltip title={t('health.tooltip', { current: health.current, temporary: health.temporary })}>
+                                <Tooltip
+                                    title={t('health.tooltip', {
+                                        current: health.current,
+                                        temporary: health.temporary
+                                    })}
+                                >
                                     <Button size="small">
-                                        <Typography variant="caption" className={classes.hp}>
-                                            {`${health.current}${health.temporary > 0 ? ` + ${health.temporary}` : ''} / ${health.maximum} HP`}
+                                        <Typography
+                                            variant="caption"
+                                            className={classes.hp}
+                                        >
+                                            {`${health.current}${
+                                                health.temporary > 0
+                                                    ? ` + ${health.temporary}`
+                                                    : ''
+                                            } / ${health.maximum} HP`}
                                         </Typography>
                                     </Button>
                                 </Tooltip>
                             </Grid>
                             {/*  --  Most important character stats  --  */}
                             <Grid item xs={12} sm={8} md={12}>
-                                <Grid container spacing={24} alignItems="center" justify="center" className={classes.leftStatsGrid}>
+                                <Grid
+                                    container
+                                    spacing={24}
+                                    alignItems="center"
+                                    justify="center"
+                                    className={classes.leftStatsGrid}
+                                >
                                     {Object.keys(abilities).map(ability => (
-                                        <Grid item xs={4} key={ability} zeroMinWidth>
-                                            <Paper className={classes.abilityContainer}>
-                                                <Typography variant="caption" noWrap className={classes.abilityTitle}>
+                                        <Grid
+                                            item
+                                            xs={4}
+                                            key={ability}
+                                            zeroMinWidth
+                                        >
+                                            <Paper
+                                                className={
+                                                    classes.abilityContainer
+                                                }
+                                            >
+                                                <Typography
+                                                    variant="caption"
+                                                    noWrap
+                                                    className={
+                                                        classes.abilityTitle
+                                                    }
+                                                >
                                                     {t(`ability.${ability}`)}
                                                 </Typography>
-                                                <Button className={classes.modifier} size="small" disabled={!editable}>
+                                                <Button
+                                                    className={classes.modifier}
+                                                    size="small"
+                                                    disabled={!editable}
+                                                >
                                                     <Typography variant="subheading">
-                                                        {abilities[ability].modifier}
+                                                        {
+                                                            abilities[ability]
+                                                                .modifier
+                                                        }
                                                     </Typography>
                                                 </Button>
-                                                <Grid container justify="center" className={classes.modifierScoreContainer}>
-                                                    <Grid item style={{ padding: 0 }}>
-                                                        <div className={classes.modifierScore}>
-                                                            {t('ability.score', { score: abilities[ability].score })}
+                                                <Grid
+                                                    container
+                                                    justify="center"
+                                                    className={
+                                                        classes.modifierScoreContainer
+                                                    }
+                                                >
+                                                    <Grid
+                                                        item
+                                                        style={{ padding: 0 }}
+                                                    >
+                                                        <div
+                                                            className={
+                                                                classes.modifierScore
+                                                            }
+                                                        >
+                                                            {t(
+                                                                'ability.score',
+                                                                {
+                                                                    score:
+                                                                        abilities[
+                                                                            ability
+                                                                        ].score
+                                                                }
+                                                            )}
                                                         </div>
                                                     </Grid>
                                                 </Grid>
@@ -213,6 +297,4 @@ export default withTracker(props => {
     return {
         character: Characters.findOne({ _id: props.params.characterID })
     };
-})(
-    translate('characters')(withStyles(styles)(CharacterDetail))
-);
+})(translate('characters')(withStyles(styles)(CharacterDetail)));

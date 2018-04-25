@@ -1,4 +1,4 @@
-import { createMuiTheme } from "material-ui";
+import { createMuiTheme } from 'material-ui';
 
 export const theme = createMuiTheme({
     palette: {
@@ -6,13 +6,13 @@ export const theme = createMuiTheme({
             light: '#ff6f60',
             main: '#e53935',
             dark: '#ab000d',
-            contrastText: '#fff',
+            contrastText: '#fff'
         },
         secondary: {
             light: '#e2f1f8',
             main: '#b0bec5',
             dark: '#808e95',
-            contrastText: '#fff',
-        },
-    },
+            contrastText: '#fff'
+        }
+    }
 });
