@@ -27,7 +27,7 @@ export class CubeCoordinate {
         return Math.max(
             Math.abs(this.x - other.x),
             Math.abs(this.y - other.y),
-            Math.abs(this.z, other.z)
+            Math.abs(this.z - other.z)
         );
     }
 
